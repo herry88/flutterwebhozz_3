@@ -39,8 +39,46 @@ class _SecondPageState extends State<SecondPage> {
               height: 30.0,
             ),
             MaterialButton(
-              onPressed: () {},
+              color: Colors.green,
+              onPressed: () {
+                //ketika text masih kosong
+                if (_eTitle.text.isEmpty) {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(
+                            'Judul Harus Diisi',
+                          ),
+                        );
+                      });
+                } else if (_eDeskripsi.text.isEmpty) {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(
+                            'Deskripsi Harus Diisi',
+                          ),
+                        );
+                      });
+                } else {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(
+                            'Judulnya adalah ' +
+                                _eTitle.text +
+                                'Deskripsi' +
+                                _eDeskripsi.text,
+                          ),
+                        );
+                      });
+                }
+              },
               child: Text('Submit'),
+              textColor: Colors.white,
             ),
           ],
         ),
