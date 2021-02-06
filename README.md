@@ -7,3 +7,11 @@
 
 ## [Materi 2 - Ui Apps](https://github.com/herry88/flutterwebhozz_3/tree/master/uiexplore)
 ![image](https://github.com/herry88/flutterwebhozz_3/blob/master/uiexplore/outpt.jpeg)
+
+## Materi 3 - Gesture Detector 
+
+## Materi 4 - Navigation 
+
+## Materi 5 - Passing Data
+
+## Materi 6 - LoginApps (PHP Dan MYSQL)
