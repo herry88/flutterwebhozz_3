@@ -1,6 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'halamanutama.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +28,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //Deklarasikan Variabel
+  TextEditingController user = TextEditingController();
+  TextEditingController pass = TextEditingController();
+
+  //function login
+  Future login() async {
+    //deklarasikan variabel url api
+    var url = "http://192.168.42.115/flutterbackend/login.php";
+    var response = await http.post(url, body: {
+      //sesuai dengan field di table
+      "username": user.text,
+      "password": pass.text
+    });
+    var data = json.decode(response.body);
+    //membuat sebuah validasi
+    if (data == "Success") {
+      Fluttertoast.showToast(
+        msg: "Login Berhasil",
+        fontSize: 16.0,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashBoard(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Username Dan Password Salah atau tidak aktif",
+        fontSize: 16.0,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    // controller:user
                   ),
+                  controller: user,
                 ),
               ),
               Padding(
@@ -76,8 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    // controller:user
                   ),
+                  controller: pass,
                 ),
               ),
               Row(
@@ -94,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       //function login
+                      login();
                     },
                   ),
                   MaterialButton(
@@ -108,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       //function Register
+                      Navigator.push(context, MaterialPage(builder:(context)=>Register()));
                     },
                   )
                 ],
