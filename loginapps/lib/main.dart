@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'halamanutama.dart';
+import 'register.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,7 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
   //function login
   Future login() async {
     //deklarasikan variabel url api
-    var url = "http://192.168.42.115/flutterbackend/login.php";
+    var url =
+        "http://192.168.42.115/flutterbackend/login.php"; //config ke server
     var response = await http.post(url, body: {
       //sesuai dengan field di table
       "username": user.text,
@@ -148,7 +150,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       //function Register
-                      Navigator.push(context, MaterialPage(builder:(context)=>Register()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Register(),
+                        ),
+                      );
                     },
                   )
                 ],
