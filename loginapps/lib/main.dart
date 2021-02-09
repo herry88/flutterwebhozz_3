@@ -135,7 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       //function login
-                      login();
+                      if(user.text.isEmpty){
+                        return Fluttertoast.showToast(msg: "User masih Kosong");
+                      } else if(pass.text.isEmpty){
+                        return Fluttertoast.showToast(msg: "Password Masih Kosong");
+                      } else{
+                        login();
+                      }
                     },
                   ),
                   MaterialButton(
