@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
+import 'halamanutama.dart';
 import 'main.dart';
 
 class Register extends StatefulWidget {
@@ -8,6 +13,32 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  TextEditingController user = TextEditingController();
+  TextEditingController pass = TextEditingController();
+
+  //function Register
+  Future register() async {
+    //config
+    var url = "http://192.168.42.115/flutterbackend/register.php";
+    var response = await http.post(url, body: {
+      "username": user.text,
+      "password": pass.text,
+    });
+    var data = json.decode(response.body);
+    if (data == "Error") {
+      Fluttertoast.showToast(msg: "User Sudah Terdaftar", fontSize: 25.0);
+      Navigator.pop(context);
+    } else {
+      Fluttertoast.showToast(msg: "Registration Successful");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashBoard(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +66,7 @@ class _RegisterState extends State<Register> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  controller: user,
                 ),
               ),
               Padding(
@@ -47,6 +79,7 @@ class _RegisterState extends State<Register> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  controller: pass,
                 ),
               ),
               Row(
@@ -62,6 +95,7 @@ class _RegisterState extends State<Register> {
                     ),
                     onPressed: () {
                       //function Register
+                      register();
                     },
                   ),
                   MaterialButton(
