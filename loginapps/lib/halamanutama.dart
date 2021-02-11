@@ -53,14 +53,19 @@ class ItemList extends StatelessWidget {
               //mengarahkan ke detail
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Detail(),
+                  builder: (context) => Detail(list:list, index: i),
                 ),
               );
             },
             child: Card(
               child: ListTile(
                 title: Text(list[i]['item_name']),
-                leading: Icon(Icons.widgets),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    'https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png',
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
                 subtitle: Text("Stock : ${list[i]['stock']}"),
               ),
             ),
