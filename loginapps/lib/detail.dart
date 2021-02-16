@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'halamanutama.dart';
 
 class Detail extends StatefulWidget {
   List list;
@@ -10,6 +13,49 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+  //function delete data
+  void deleteData() {
+    var url = "http://192.168.42.115/flutterbackend/delete.php";
+    http.post(url, body: {'id': widget.list[widget.index]['id']});
+  }
+
+  void confirm() {
+    AlertDialog alertDialog = AlertDialog(
+      content: Text(
+        'Apakah Anda yakin untuk hapus ${widget.list[widget.index]['item_name']}',
+      ),
+      // content: Text("Apakah Anda yakin untuk hapus ${widget}"),
+      actions: [
+        RaisedButton(
+          child: Text(
+            'Ok Delete',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          onPressed: () {
+            deleteData();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
+          },
+        ),
+        RaisedButton(
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    );
+    showDialog(context: context, child: alertDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,9 +98,7 @@ class _DetailState extends State<Detail> {
                   ),
                   RaisedButton(
                     child: Text('Delete'),
-                    onPressed: () {
-                      //untuk delete
-                    },
+                    onPressed: () => confirm(),
                     color: Colors.red,
                   ),
                 ],

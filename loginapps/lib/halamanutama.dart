@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'add.dart';
 import 'detail.dart';
 
 class DashBoard extends StatefulWidget {
@@ -22,6 +23,7 @@ class _DashBoardState extends State<DashBoard> {
       appBar: AppBar(
         title: Text('MySTORE'),
       ),
+      
       body: FutureBuilder(
         future: getData(),
         builder: (context, snapshot) {
@@ -33,6 +35,16 @@ class _DashBoardState extends State<DashBoard> {
               : Center(
                   child: CircularProgressIndicator(),
                 );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add,),
+        onPressed: (){
+          //kosongin dulu
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context)=> AddData(),
+
+          ),);
         },
       ),
     );
