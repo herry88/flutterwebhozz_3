@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:loginapps/halamanutama.dart';
 
-class AddData extends StatefulWidget {
+class EditData extends StatefulWidget {
+  List list; 
+  int index;
+  EditData({this.list, this.index});
   @override
-  _AddDataState createState() => _AddDataState();
+  _EditDataState createState() => _EditDataState();
 }
 
-class _AddDataState extends State<AddData> {
+class _EditDataState extends State<EditData> {
   TextEditingController code = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController stock = TextEditingController();
 
-  //function add
-  void addData() {
-    var url = "http://192.168.42.115/flutterbackend/addData.php";
+  void editData(){
+    var url = "http://192.168.42.115/flutterbackend/editData.php";
     http.post(url, body: {
+      "id":widget.list[widget.index]['id'],
       "item_code": code.text,
       "item_name": name.text,
       "price": price.text,
@@ -25,12 +27,20 @@ class _AddDataState extends State<AddData> {
     });
   }
 
+  void initState(){
+    code = TextEditingController(text: widget.list[widget.index]['item_code']);
+    name = TextEditingController(text: widget.list[widget.index]['item_name']);
+    price = TextEditingController(text: widget.list[widget.index]['price']);
+    stock = TextEditingController(text: widget.list[widget.index]['stock']);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('AddData'),
+        title: Text('Edit Data'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -68,30 +78,9 @@ class _AddDataState extends State<AddData> {
               child: Text('Simpan Data'),
               color: Colors.blueAccent,
               onPressed: () {
-                //function add
-                if (code.text.isEmpty) {
-                  return Fluttertoast.showToast(msg: 'Code Harus Diisi');
-                } else if (name.text.isEmpty) {
-                  return Fluttertoast.showToast(msg: 'Name Harus Diisi');
-                } else if (price.text.isEmpty) {
-                  return Fluttertoast.showToast(msg: 'Price Harus diisi');
-                } else if (stock.text.isEmpty) {
-                  return Fluttertoast.showToast(msg: 'Stock Harus Diisi');
-                } else {
-                 
-                  addData();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DashBoard(),
-                    ),
-                  );
-                   return Fluttertoast.showToast(
-                    msg: 'Berhasil Disimpan',
-                    textColor: Colors.amber,
-                  );
-                  
-                }
+                //function edit
+                editData();
+               
               },
             ),
           ],
@@ -99,4 +88,5 @@ class _AddDataState extends State<AddData> {
       ),
     );
   }
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:loginapps/edit.dart';
 
 import 'halamanutama.dart';
 
@@ -93,6 +94,14 @@ class _DetailState extends State<Detail> {
                     child: Text('Edit'),
                     onPressed: () {
                       //untuk edit
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditData(
+                            list: widget.list,
+                            index: widget.index,
+                          ),
+                        ),
+                      );
                     },
                     color: Colors.green,
                   ),
