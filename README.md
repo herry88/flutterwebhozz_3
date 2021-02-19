@@ -15,3 +15,7 @@
 ## [Materi 5 - Passing Data](https://github.com/herry88/flutterwebhozz_3/tree/master/passingdata)
 
 ## [Materi 6 - LoginApps (PHP Dan MYSQL)](https://github.com/herry88/flutterwebhozz_3/tree/master/loginapps)
+
+## [Materi 7 - CRUD PHP MYSQL - Flutter](https://github.com/herry88/flutterwebhozz_3/tree/master/loginapps/lib)
+
+## [Materi 8 - UploadImage Flutter PHP MySQL](https://github.com/herry88/flutterwebhozz_3/tree/master/upload_images)
