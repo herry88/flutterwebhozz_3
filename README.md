@@ -24,6 +24,14 @@
 ## [Materi 10 - Flutter NFC]
 ## [Materi 11 - Flutter Maps Location]
 ## [Materi 12 - Firebase]
+ 
+## [Materi 13 - Python Api(CRUD)- Flutter]
+## [Materi 14 - GolangAPi (CRUD) - Flutter]
+
+## Real World Apps
+- Cuaca Apps
+- Cari tukang kopi 
+- Ojek Online 
 
 ## Author : Herry Prasetyo 
 ## Years : 2021 
