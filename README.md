@@ -27,11 +27,22 @@
  
 ## [Materi 13 - Python Api(CRUD)- Flutter]
 ## [Materi 14 - GolangAPi (CRUD) - Flutter]
+## [Materi 15 - CodeigniterApi(CRUD) -  Flutter]
+
+## [Materi 15 - Laravel 8 Api -  Flutter (Membuat Blog Pribadi)](https://www.youtube.com/playlist?list=PL_zC61IAii7AX9ppcAkbqHp6rXXLWorlx)
+## [Materi 16 - Laravel 8 Api - Flutter(Membuat Toko Online)]
+
+## Flutter UI Kit
+- Toko Online 
 
 ## Real World Apps
 - Cuaca Apps
 - Cari tukang kopi 
 - Ojek Online 
+- Smart Apps School
+
+## Flutter Web 
+- 
 
 ## Author : Herry Prasetyo 
 ## Years : 2021 
