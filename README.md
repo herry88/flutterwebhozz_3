@@ -40,6 +40,7 @@
 - Cari tukang kopi 
 - Ojek Online 
 - Smart Apps School
+- Aplikasi Pembayaran Dengan Firebase ML Kit via Barcode
 
 ## Flutter Web 
 - 
