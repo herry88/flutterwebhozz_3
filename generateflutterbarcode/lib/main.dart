@@ -99,7 +99,8 @@ class _MyAppState extends State<MyApp> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Icon(Icons.verified_user, size: 18, color: Colors.green),
-                  Text('belajarflutter.com QrCode Generate', style: TextStyle(fontSize: 15)),
+                  Text('belajarflutter.com QrCode Generate',
+                      style: TextStyle(fontSize: 15)),
                   Spacer(),
                   Icon(Icons.more_vert, size: 18, color: Colors.black54),
                 ],
@@ -143,34 +144,13 @@ class _MyAppState extends State<MyApp> {
                                 this.setState(() => this.bytes = Uint8List(0)),
                           ),
                         ),
-                        Text('|',
-                            style:
-                                TextStyle(fontSize: 15, color: Colors.black26)),
-                        // Expanded(
-                        //   flex: 5,
-                        //    child: GestureDetector(
-                        //     onTap: () async {
-                        //       final success =
-                        //           await ImageGallerySaver.saveImage(this.bytes);
-                        //       SnackBar snackBar;
-                        //       if (success) {
-                        //         snackBar = new SnackBar(
-                        //             content:
-                        //                 new Text('Successful Preservation!'));
-                        //         Scaffold.of(context).showSnackBar(snackBar);
-                        //       } else {
-                        //         snackBar = new SnackBar(
-                        //             content: new Text('Save failed!'));
-                        //       }
-                        //     },
-                        //     child: Text(
-                        //       'save',
-                        //       style:
-                        //           TextStyle(fontSize: 15, color: Colors.blue),
-                        //       textAlign: TextAlign.right,
-                        //     ),
-                        //   ),
-                        // ),
+                        Text(
+                          '|',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black26,
+                          ),
+                        ),
                       ],
                     ),
                   )
@@ -220,14 +200,9 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-       
       ],
     );
   }
-
-  
-
-  
 
   Future _generateBarCode(String inputCode) async {
     Uint8List result = await scanner.generateBarCode(inputCode);
