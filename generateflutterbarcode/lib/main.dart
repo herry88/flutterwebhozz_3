@@ -140,8 +140,9 @@ class _MyAppState extends State<MyApp> {
                                   TextStyle(fontSize: 15, color: Colors.blue),
                               textAlign: TextAlign.left,
                             ),
-                            onTap: () =>
-                                this.setState(() => this.bytes = Uint8List(0)),
+                            onTap: () => this.setState(
+                              () => this.bytes = Uint8List(0),
+                            ),
                           ),
                         ),
                         Text(
