@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MovieItem extends StatelessWidget{
+class MovieItem extends StatelessWidget {
   final movies;
   final item;
 
   Color mainColor = const Color(0xff3C3261);
   var imageUrl = 'https://image.tmdb.org/t/p/w500/';
 
-  MovieItem(
-      this.movies,
-      this.item);
+  MovieItem(this.movies, this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -31,27 +29,58 @@ class MovieItem extends StatelessWidget{
                     borderRadius: new BorderRadius.circular(10.0),
                     color: Colors.grey,
                     image: DecorationImage(
-                        image: NetworkImage(imageUrl + movies[item]['poster_path']),
-                        fit: BoxFit.cover
-                    ),
+                        image: NetworkImage(
+                            imageUrl + movies[item]['poster_path']),
+                        fit: BoxFit.cover),
                     boxShadow: [
                       new BoxShadow(
                           color: mainColor,
                           blurRadius: 5.0,
-                          offset: new Offset(2.0, 5.0)
-                      )
-                    ]
-                ),
+                          offset: new Offset(2.0, 5.0))
+                    ]),
               ),
             ),
+
             ///Using Expanded so that all content will show
             ///This vertical so the Column will be used,
             ///putting it into a container widget enable giving it margin
-            
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                child: Column(
+                  children: [
+                    Text(
+                      movies[item]['title'],
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: mainColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                    ),
+                    Text(
+                      movies[item]['overview'],
+                      maxLines: 3,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
+
         ///Divider
-       
+        Container(
+          width: 300.0,
+          height: 0.5,
+          margin: const EdgeInsets.all(16.0,),
+        ),
       ],
     );
   }
