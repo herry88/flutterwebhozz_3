@@ -20,7 +20,7 @@
 ## [Backend PHP MYSQL- Flutter](https://github.com/herry88/flutterwebhozz_3/tree/master/flutterbackend)
 
 ## [Materi 9 - Barcode Flutter](https://github.com/herry88/myflutterexcersice/tree/master/qrcodeflutter)
-## [Materi 10 - Generate Barcode Flutter]
+## [Materi 10 - Generate Barcode Flutter](https://github.com/herry88/myflutterexcersice/tree/master/generateflutterbarcode)
 ## [Materi 10 - Flutter NFC]
 ## [Materi 11 - Flutter Maps Location]
 ## [Materi 12 - Firebase]
