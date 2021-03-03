@@ -23,7 +23,7 @@
 ## [Materi 10 - Generate Barcode Flutter](https://github.com/herry88/myflutterexcersice/tree/master/generateflutterbarcode)
 ## [Materi 10 - Flutter NFC]
 ## [Materi 11 - Flutter Maps Location]
-## [Materi 12 - Firebase]
+## [Materi 12 - Firebase](https://github.com/herry88/myflutterexcersice/tree/master/blogappsfirebase)
  
 ## [Materi 13 - Python Api(CRUD)- Flutter]
 ## [Materi 14 - GolangAPi (CRUD) - Flutter]
