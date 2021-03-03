@@ -1,4 +1,11 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:webberita/constants/config.dart';
+import 'package:webberita/modul/mainMenu.dart';
 
 void main() {
   runApp(
@@ -17,104 +24,174 @@ void main() {
   );
 }
 
+//variabel enum
+enum LoginStatus { notSignIn, signIn }
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+
+  LoginStatus _loginStatus = LoginStatus.notSignIn;
+
+  String email, password;
+
+  final _key = new GlobalKey<FormState>();
+
+  bool _secureText = true;
+
+  showHide() {
+    setState(() {
+      _secureText = !_secureText;
+    });
+  }
+
+  check() {
+    final form = _key.currentState;
+    if (form.validate()) {
+      form.save();
+      login();
+    }
+  }
+
+  savePref(int value, String username, String email, String id_users) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setInt("value", value);
+      preferences.setString("username", username);
+      preferences.setString("email", email);
+      preferences.setString("id_users", id_users);
+      // preferences.setString();
+    });
+  }
+
+  login() async {
+    final response = await http.post(BaseUrl().login, body: {
+      "email" : email,
+      "password" : password,
+    });
+    final data = jsonDecode(response.body);
+
+    int value = data['value'];
+    String pesan = data['message'];
+    String usernameAPI = data['username'];
+    String emailAPI = data['email'];
+    String id_users = data['id_users'];
+    if (value == 1) {
+      setState(() {
+        _loginStatus = LoginStatus.signIn;
+        savePref(value, usernameAPI, emailAPI, id_users);
+      });
+
+      print(pesan);
+    } else {
+      print(pesan);
+    }
+  }
+
+  var value;
+  getPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      value = preferences.getInt("value");
+      _loginStatus = value == 1 ? LoginStatus.signIn : LoginStatus.notSignIn;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPref();
+  }
+
+    SignOut() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setInt("value", null);
+      
+      // preferences.commit();
+      _loginStatus = LoginStatus.notSignIn;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red,
-      body: Form(
-        child: Container(
-          margin: EdgeInsets.all(32.0),
-          padding: EdgeInsets.only(
-            top: 32.0,
-            left: 16.0,
-            right: 16.0,
-            bottom: 16.0,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(
-              16.0,
+    switch(_loginStatus) {
+      case LoginStatus.notSignIn:
+        return Scaffold(
+          backgroundColor: Colors.red,
+          body: Form(
+            key: _key,
+            child: Container(
+              margin: EdgeInsets.all(32),
+              padding: EdgeInsets.only(top: 32, left: 16, right: 16, bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("Login", style: TextStyle(color: Colors.black, fontSize: 24),),
+                  SizedBox(height: 24,),
+                  Text("Welcome back\nPlease Login to Your Count", style: TextStyle(fontSize: 20, color: Colors.grey),),
+                  SizedBox(height: 24,),
+
+                  TextFormField(
+                    validator: (String e){
+                      if(e.isEmpty) {
+                        return "Please insert email";
+                      }
+                    },
+                    onSaved: (e) => email = e,
+                    decoration: InputDecoration(labelText: "Email"),
+                  ),
+                  TextFormField(
+                    obscureText: _secureText,
+                    onSaved: (e) => password = e,
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        suffixIcon: IconButton(
+                          onPressed: showHide,
+                          icon: Icon(_secureText ? Icons.visibility_off : Icons.visibility),
+                        ) ),
+
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 16, bottom: 16),
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: RaisedButton(
+                      color: Colors.red,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      onPressed: (){
+                        check();
+                      },
+                      child: Text("login", style: TextStyle(color: Colors.white, letterSpacing: 3),),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: InkWell(
+                      onTap: () {
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Register()));
+                      },
+                      child: Text("Create a new account, in Here", style: TextStyle(color: Colors.blue),textAlign: TextAlign.center,),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
-          child: Column(
-            children: [
-              Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24.0,
-                ),
-              ),
-              SizedBox(
-                height: 24.0,
-              ),
-              Text(
-                'Welcome back\nPlease Login to your Account',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                height: 24.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Email",
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Password",
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 16.0,
-                  bottom: 16.0,
-                ),
-                height: 40.0,
-                child: RaisedButton(
-                  color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      8.0,
-                    ),
-                  ),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 3.0,
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              Container(
-                child: InkWell(
-                  onTap: () {
-                    //
-                  },
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+        );
+        break;
+      case LoginStatus.signIn:
+        return MainMenu(SignOut);
+        break;
+    }
   }
 }
